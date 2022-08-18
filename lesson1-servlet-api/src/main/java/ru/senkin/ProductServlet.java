@@ -14,7 +14,7 @@ import java.util.List;
 //http://localhost:8080/HomeWorkApp/show_products
 
 @WebServlet(name = "Products", urlPatterns = "/show_products")
-public class ProductServlet extends HttpServlet {
+public class  ProductServlet extends HttpServlet {
 
     private final Logger logger = LoggerFactory.getLogger(ProductServlet.class);
 
