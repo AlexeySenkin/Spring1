@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component("cart")
@@ -28,11 +29,7 @@ public class Cart {
     }
 
     public void deleteProductById(int repId) {
-        for (int i = 0; i < productsInCart.size(); i++) {
-            if (productsInCart.get(i).getId() == repId) {
-                productsInCart.remove(i);
-            }
-        }
+        productsInCart.removeIf(nextProduct -> nextProduct.getId() == repId);
     }
 
     public void addProductById(int repId) {
