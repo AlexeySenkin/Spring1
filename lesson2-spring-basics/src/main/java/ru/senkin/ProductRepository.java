@@ -10,43 +10,29 @@ import java.util.Objects;
 
 @Repository("product_repository")
 public class ProductRepository {
-    List<Product> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public ProductRepository() {
     }
 
     @PostConstruct
     public void init() {
-        products.add(new Product(1, "Milk", 10));
-        products.add(new Product(2, "Bread", 5));
-        products.add(new Product(3, "Eggs", 30));
-        products.add(new Product(4, "Meat", 100));
-        products.add(new Product(5, "Orange", 10));
+        products.add(new Product(0, "Milk", 10));
+        products.add(new Product(1, "Bread", 5));
+        products.add(new Product(2, "Eggs", 30));
+        products.add(new Product(3, "Meat", 100));
+        products.add(new Product(4, "Orange", 10));
     }
 
     public Product getProductById(int id) {
         return products.get(id);
     }
 
-    public void deleteProductById(int id) {
-        products.remove(id);
-    }
-
-    public void clearAllProduct() {
-        products.clear();
-    }
-
-    public void fillNewProduct() {
-        init();
-    }
 
     public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
 
     @Override
     public boolean equals(Object o) {
