@@ -39,12 +39,17 @@ public class UserRepository {
         userMap.put(id, user);
     }
 
-    public void update(User user) {
+    public User edit(User user) {
+        if (user.getId() == null) {
+            user.setId(identity.incrementAndGet());
+        }
         userMap.put(user.getId(), user);
+        return user;
     }
 
     public void delete(long id) {
         userMap.remove(id);
     }
+
 
 }
