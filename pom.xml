@@ -21,7 +21,6 @@
         <module>lesson2-spring-basics</module>
         <module>lesson3-spring-mvc</module>
         <module>lesson4-spring-boot</module>
-
     </modules>
 
     <dependencies>
