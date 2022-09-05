@@ -12,17 +12,17 @@ public class main {
 
         ProductRepository productRepository = new ProductRepository(entityManagerFactory);
 
-        productRepository.save(new Product("Milk",100));
-        productRepository.save(new Product("Orange",200));
-        productRepository.save(new Product("Bread",50));
-        productRepository.save(new Product("Eggs",150));
-        productRepository.save(new Product("Meat",1000));
+//        productRepository.save(new Product("Milk",100));
+//        productRepository.save(new Product("Orange",200));
+//        productRepository.save(new Product("Bread",50));
+//        productRepository.save(new Product("Eggs",150));
+//        productRepository.save(new Product("Meat",1000));
         System.out.println(productRepository.findAll());
 
         Optional<Product> optionalProduct = productRepository.findById(1L);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
-            product.setCost(99);
+            //product.setCost(99);
             productRepository.save(product);
         } else {
             System.out.println("ProductById not found");
