@@ -2,8 +2,8 @@ package ru.senkin.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,9 +26,12 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal cost;
 
-    public Product(String title, BigDecimal cost) {
+    @OneToMany(mappedBy = "product")
+    private List<LineItem> lineItems;
+
+    public Product(String title, String description, BigDecimal cost) {
         this.title = title;
+        this.description = description;
         this.cost = cost;
     }
-
 }

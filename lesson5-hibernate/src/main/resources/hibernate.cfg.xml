@@ -18,5 +18,8 @@
         <mapping class="ru.senkin.model.User"/>
         <mapping class="ru.senkin.model.Product"/>
         <mapping class="ru.senkin.model.Contact"/>
+        <mapping class="ru.senkin.model.Customer"/>
+        <mapping class="ru.senkin.model.LineItem"/>
+
     </session-factory>
 </hibernate-configuration>
