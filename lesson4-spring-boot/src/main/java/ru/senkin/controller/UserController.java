@@ -1,6 +1,7 @@
 package ru.senkin.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,14 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.senkin.repsist.User;
+import ru.senkin.repsist.InMemoryUserRepository;
 import ru.senkin.repsist.UserRepository;
+import ru.senkin.repsist.UserRepositoryImpl;
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
+
+    private final UserRepositoryImpl userRepository;
+
+//    public UserController(UserRepositoryImpl userRepository) {
+//        this.userRepository = userRepository;
+//    }
 
     @GetMapping
     public String listPage(Model model) {
@@ -25,7 +33,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String form(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userRepository.findById(id));
+        model.addAttribute("user", userRepository.userById(id));
         return "user_form";
     }
 
@@ -37,13 +45,13 @@ public class UserController {
 
     @GetMapping("/delete_user/{id}")
     public String deleteUser(@PathVariable("id") long id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
         return "redirect:/user";
     }
 
     @PostMapping
     public String editUser(User user) {
-        userRepository.edit(user);
+        userRepository.save(user);
         return "redirect:/user";
     }
 
