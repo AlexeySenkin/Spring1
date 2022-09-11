@@ -1,17 +1,23 @@
 package ru.senkin.repsist;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.Optional;
 
-public interface UserRepository {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findAll();
+    List<User> findAllByUsernameLike(String userNameFilter);
 
-    Optional<User> userById(long id);
+    @Query(value = """
+            select * from  users u 
+            where (:usernameFilter is null or u.username like :usernameFilter)
+                and (:emailFilter is null or u.email like :emailFilter)
+            """, nativeQuery = true)
 
-    User save(User user);
-
-    void deleteById(long id);
+    List<User> usersByFilter(String usernameFilter, String emailFilter);
 
 
-    }
+}

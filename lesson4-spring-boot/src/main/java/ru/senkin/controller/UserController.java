@@ -1,39 +1,37 @@
 package ru.senkin.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.senkin.repsist.User;
-import ru.senkin.repsist.InMemoryUserRepository;
 import ru.senkin.repsist.UserRepository;
-import ru.senkin.repsist.UserRepositoryImpl;
+
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserRepository userRepository;
 
-    private final UserRepositoryImpl userRepository;
 
-//    public UserController(UserRepositoryImpl userRepository) {
-//        this.userRepository = userRepository;
-//    }
 
     @GetMapping
-    public String listPage(Model model) {
-        model.addAttribute("users", userRepository.findAll());
+    public String listPage(
+            @RequestParam(required = false) String usernameFilter,
+            @RequestParam(required = false) String emailFilter,
+                           Model model) {
+        usernameFilter = usernameFilter == null || usernameFilter.isBlank() ? null : "%" + usernameFilter.trim() + "%";
+        emailFilter = emailFilter == null || emailFilter.isBlank() ? null : "%" + emailFilter.trim() + "%";
+
+        model.addAttribute("users", userRepository.usersByFilter(usernameFilter, emailFilter));
         return "user";
     }
 
     @GetMapping("/{id}")
     public String form(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userRepository.userById(id));
+        model.addAttribute("user", userRepository.findById(id));
         return "user_form";
     }
 

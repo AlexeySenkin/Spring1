@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/head.html :: head">
+<head th:replace="fragments/header.html :: head">
 
 </head>
 
 <body>
 
-<nav th:replace="fragments/head.html :: navigation">
+<nav th:replace="fragments/header.html :: navigation">
 
 </nav>
 
@@ -17,29 +17,29 @@
             <a class="btn btn-primary" th:href="@{/user/new_user}">Add User</a>
         </div>
 
-<!--        <div class="col-12 mt-3">-->
-<!--            <form class="form-inline">-->
-<!--                <div class="form-group mb-2 mr-2">-->
-<!--                    <label for="usernameFilter" class="sr-only">Username filter</label>-->
-<!--                    <input type="text" class="form-control" id="usernameFilter"-->
-<!--                           name="usernameFilter" placeholder="Username filter" th:value="${param.usernameFilter}">-->
-<!--                </div>-->
+        <div class="col-12 mt-3">
+            <form class="form-inline">
+                <div class="form-group mb-2 mr-2">
+                    <label for="usernameFilter" class="sr-only">Username filter</label>
+                    <input type="text" class="form-control" id="usernameFilter"
+                           name="usernameFilter" placeholder="Username filter" th:value="${param.usernameFilter}">
+                </div>
 
-<!--                <button type="submit" class="btn btn-primary mb-2">Apply</button>-->
-<!--            </form>-->
-<!--        </div>-->
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+            </form>
+        </div>
 
-<!--        <div class="col-12 mt-3">-->
-<!--            <form class="form-inline">-->
-<!--                <div class="form-group mb-2 mr-2">-->
-<!--                    <label for="emailFilter" class="sr-only">Email filter</label>-->
-<!--                    <input type="text" class="form-control" id="emailFilter"-->
-<!--                           name="emailFilter" placeholder="Email filter" th:value="${param.emailFilter}">-->
-<!--                </div>-->
+        <div class="col-12 mt-3">
+            <form class="form-inline">
+                <div class="form-group mb-2 mr-2">
+                    <label for="emailFilter" class="sr-only">Email filter</label>
+                    <input type="text" class="form-control" id="emailFilter"
+                           name="emailFilter" placeholder="Email filter" th:value="${param.emailFilter}">
+                </div>
 
-<!--                <button type="submit" class="btn btn-primary mb-2">Apply</button>-->
-<!--            </form>-->
-<!--        </div>-->
+                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+            </form>
+        </div>
 
         <div class="col-12">
             <table class="table table-bordered my-2">
