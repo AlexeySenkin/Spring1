@@ -11,6 +11,8 @@ import ru.senkin.model.dto.UserDto;
 import ru.senkin.repository.UserRepository;
 import ru.senkin.service.UserService;
 
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/user")
@@ -37,6 +39,8 @@ public class UserController {
     public String listPage(
             @RequestParam(required = false) String usernameFilter,
             @RequestParam(required = false) String emailFilter,
+            @RequestParam(required = false) Optional<Integer> page,
+            @RequestParam(required = false) Optional<Integer> size,
             Model model) {
 
 //        QUser user = QUser.user;
@@ -48,7 +52,10 @@ public class UserController {
 //            predicate.and(user.username.contains(emailFilter.trim()));
 //        }
 
-        model.addAttribute("users", userService.findAllByFilter(usernameFilter,emailFilter));
+        Integer pageValue = page.orElse(1) - 1;
+        Integer sizeValue = size.orElse(5);
+
+        model.addAttribute("users", userService.findAllByFilter(usernameFilter,emailFilter, pageValue, sizeValue));
 
         return "user";
     }
