@@ -22,7 +22,6 @@ public class UserDto {
     @Email
     private String email;
 
-//    @Pattern(regexp = "")
     private String password;
 
     private String matchingPassword;

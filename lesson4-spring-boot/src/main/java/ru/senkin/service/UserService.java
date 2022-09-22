@@ -16,15 +16,6 @@ public class UserService {
     private final UserRepository userRepository;
 
     public Page<UserDto> findAllByFilter(String usernameFilter, String emailFilter, int page, int size) {
-//        QUser user = QUser.user;
-//        BooleanBuilder predicate = new BooleanBuilder();
-//        if (usernameFilter != null && !usernameFilter.isBlank()) {
-//            predicate.and(user.username.contains(usernameFilter.trim()));
-//        }
-//
-//        if (emailFilter != null && !emailFilter.isBlank()) {
-//            predicate.and(user.username.contains(emailFilter.trim()));
-//        }
 
         usernameFilter = usernameFilter == null || usernameFilter.isBlank() ? null : "%" + usernameFilter.trim() + "%";
         emailFilter = emailFilter == null || emailFilter.isBlank() ? null : "%" + emailFilter.trim() + "%";
