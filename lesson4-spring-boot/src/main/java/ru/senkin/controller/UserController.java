@@ -1,16 +1,11 @@
 package ru.senkin.controller;
 
-import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.senkin.model.QUser;
-import ru.senkin.model.User;
 import ru.senkin.model.dto.UserDto;
-import ru.senkin.repository.UserRepository;
 import ru.senkin.service.UserService;
-
 import java.util.Optional;
 
 
@@ -53,7 +48,7 @@ public class UserController {
 //        }
 
         Integer pageValue = page.orElse(1) - 1;
-        Integer sizeValue = size.orElse(5);
+        Integer sizeValue = size.orElse(10);
 
         model.addAttribute("users", userService.findAllByFilter(usernameFilter,emailFilter, pageValue, sizeValue));
 
