@@ -1,11 +1,15 @@
 package ru.senkin.controller;
 
+import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.senkin.repsist.User;
-import ru.senkin.repsist.UserRepository;
+import ru.senkin.model.QUser;
+import ru.senkin.model.User;
+import ru.senkin.model.dto.UserDto;
+import ru.senkin.repository.UserRepository;
+import ru.senkin.service.UserService;
 
 
 @Controller
@@ -13,43 +17,64 @@ import ru.senkin.repsist.UserRepository;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
 
+
+//    @GetMapping
+//    public String listPage(
+//            @RequestParam(required = false) String usernameFilter,
+//            @RequestParam(required = false) String emailFilter,
+//                           Model model) {
+//        usernameFilter = usernameFilter == null || usernameFilter.isBlank() ? null : "%" + usernameFilter.trim() + "%";
+//        emailFilter = emailFilter == null || emailFilter.isBlank() ? null : "%" + emailFilter.trim() + "%";
+//
+//        model.addAttribute("users", userRepository.usersByFilter(usernameFilter, emailFilter));
+//        return "user";
+//    }
 
     @GetMapping
     public String listPage(
             @RequestParam(required = false) String usernameFilter,
             @RequestParam(required = false) String emailFilter,
-                           Model model) {
-        usernameFilter = usernameFilter == null || usernameFilter.isBlank() ? null : "%" + usernameFilter.trim() + "%";
-        emailFilter = emailFilter == null || emailFilter.isBlank() ? null : "%" + emailFilter.trim() + "%";
+            Model model) {
 
-        model.addAttribute("users", userRepository.usersByFilter(usernameFilter, emailFilter));
+//        QUser user = QUser.user;
+//        BooleanBuilder predicate = new BooleanBuilder();
+//        if (usernameFilter != null && !usernameFilter.isBlank()) {
+//            predicate.and(user.username.contains(usernameFilter.trim()));
+//        }
+//        if (emailFilter != null && !emailFilter.isBlank()) {
+//            predicate.and(user.username.contains(emailFilter.trim()));
+//        }
+
+        model.addAttribute("users", userService.findAllByFilter(usernameFilter,emailFilter));
+
         return "user";
     }
 
+
     @GetMapping("/{id}")
     public String form(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userRepository.findById(id));
+        model.addAttribute("user", userService.findUserById(id));
         return "user_form";
     }
 
     @GetMapping("/new_user")
     public String addUser(Model model) {
-        model.addAttribute("user", new User(""));
+        model.addAttribute("user", new UserDto());
         return "user_form";
     }
 
     @GetMapping("/delete_user/{id}")
     public String deleteUser(@PathVariable("id") long id) {
-        userRepository.deleteById(id);
+        userService.deleteById(id);
         return "redirect:/user";
     }
 
     @PostMapping
-    public String editUser(User user) {
-        userRepository.save(user);
+    public String editUser(@ModelAttribute("user") UserDto userDto) {
+        userService.save(userDto);
         return "redirect:/user";
     }
 
