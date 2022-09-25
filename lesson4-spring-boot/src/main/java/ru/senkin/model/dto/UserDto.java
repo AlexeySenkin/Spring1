@@ -1,5 +1,6 @@
 package ru.senkin.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class UserDto {
 
     private String password;
 
+    @JsonIgnore
     private String matchingPassword;
 
     public UserDto(Long id, String username, String email, String password) {
