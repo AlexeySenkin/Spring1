@@ -27,7 +27,7 @@ public class UserResource {
     }
 
     @GetMapping
-    public List<UserDto> listPage(
+    public Page<UserDto> listPage(
             @RequestParam(required = false) String usernameFilter,
             @RequestParam(required = false) String emailFilter,
             @RequestParam(required = false) Optional<Integer> page,
@@ -38,10 +38,11 @@ public class UserResource {
 
         Page<UserDto> userDtoPage = userService.findAllByFilter(usernameFilter,emailFilter, pageValue, sizeValue);
 
-        return userDtoPage.get().collect(Collectors.toList());
+        //return userDtoPage.get().collect(Collectors.toList());
+        return userDtoPage;
     }
 
-    @PostMapping
+    @PutMapping
     public UserDto editUser(@RequestBody UserDto userDto) {
         if (userDto.getId() != null) {
             throw new IllegalArgumentException("shouldn't have ID");
